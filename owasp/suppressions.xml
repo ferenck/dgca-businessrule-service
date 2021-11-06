@@ -28,4 +28,6 @@
     <!--  Vulnerability impacts WebFlux apps only and can be ignored here.  -->
     <cve>CVE-2021-22118</cve>
   </suppress>
+    <!-- spring-cloud-openfeign-core-3.0.4.jar: CVE-2021-22044 -->
+    <cve>CVE-2021-22044</cve>
 </suppressions>
