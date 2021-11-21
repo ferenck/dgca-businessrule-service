@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/java-debian10:11
+FROM gcr.io/distroless/java-debian11:11
 WORKDIR /
 COPY scripts/Dpkg.java Dpkg.java
 COPY target/*.jar app.jar
