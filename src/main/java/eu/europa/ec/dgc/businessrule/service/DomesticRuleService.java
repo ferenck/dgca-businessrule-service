@@ -25,6 +25,7 @@ import eu.europa.ec.dgc.businessrule.entity.SignedListEntity;
 import eu.europa.ec.dgc.businessrule.model.DomesticRuleItem;
 import eu.europa.ec.dgc.businessrule.repository.SignedListRepository;
 import eu.europa.ec.dgc.businessrule.restapi.dto.DomesticRuleListItemDto;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class DomesticRuleService {
 
-    private Map<String, DomesticRuleItem> domesticRuleMap = new HashMap<>();
+    private final Map<String, DomesticRuleItem> domesticRuleMap = new HashMap<>();
     private final ListSigningService listSigningService;
     private final Optional<SigningService> signingService;
     private final SignedListRepository signedListRepository;
@@ -62,7 +63,9 @@ public class DomesticRuleService {
      */
     public List<DomesticRuleListItemDto> getRulesList() {
 
-        return domesticRuleMap.values().stream().map(rule -> new DomesticRuleListItemDto(
+        return domesticRuleMap.values().stream()
+            .sorted(Comparator.comparing(DomesticRuleItem::getIdentifier))
+            .map(rule -> new DomesticRuleListItemDto(
                 rule.getIdentifier(),
                 rule.getVersion(),
                 rule.getHash()
